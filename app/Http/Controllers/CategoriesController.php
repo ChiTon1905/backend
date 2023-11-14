@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Categories;
+use Illuminate\Http\Request;
+use App\Http\Resources\CategoriesResource;
 use App\Http\Requests\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
-use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\CategoryPaginateResource;
 
 class CategoriesController extends Controller
 {
@@ -49,9 +52,15 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function show(Categories $categories)
+    public function show($id,Request $request)
     {
-        return new CategoriesResource($categories);
+        $perPage = $request->input('per_page', 12);
+
+        $categories = Categories::find($id);
+
+        $book = Book::where('categories_id', $categories->id)->with('image') ->paginate($perPage);
+
+        return new CategoryPaginateResource($categories, $book);
     }
 
     /**
@@ -72,9 +81,14 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoriesRequest $request, Categories $category)
+    public function update(UpdateCategoriesRequest $request, $id)
     {
-        $category->update($request->validated());
+        $category = Categories::find($id);
+        $category->update(
+            [
+                'name' => $request->input('name')
+            ]
+        );
         return response()->json("category updated");
     }
 
@@ -84,9 +98,10 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categories $category)
+    public function destroy($id)
     {
+        $category = Categories::find($id);
         $category->delete();
-        return  response(null,204);
+        return  response(null, 204);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookResource;
 use App\Http\Requests\UpdateBookRequest;
+use App\Http\Resources\BookPaginateResource;
 
 class BookController extends Controller
 {
@@ -17,10 +18,15 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return BookResource::collection(
-            Book::all()
+        $perPage = $request->input('per_page', 12);
+
+        $data = Book::paginate($perPage);
+
+
+        return BookPaginateResource::collection(
+           $data
         );
     }
 

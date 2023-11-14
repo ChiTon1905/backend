@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Language;
+use App\Http\Requests\RolesRequest;
+use App\Http\Resources\RolesResource;
 use Illuminate\Http\Request;
-use App\Http\Requests\LanguagesRequest;
-use App\Http\Resources\LanguagesResource;
-use App\Http\Resources\LanguagesShowResource;
+use Spatie\Permission\Models\Role;
 
-class LanguagesController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,8 @@ class LanguagesController extends Controller
      */
     public function index()
     {
-        return LanguagesResource::collection(
-            Language::all()
+        return RolesResource::collection(
+            Role::all()
         );
     }
 
@@ -39,10 +37,11 @@ class LanguagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LanguagesRequest $request)
+    public function store(RolesRequest $request)
     {
-        Language::create($request->validated());
-        return response()->json("language created");
+        $role = Role::create(['name' => $request->input('name')]);
+
+        return response()->json(['message' => 'Role created successfully']);
     }
 
     /**
@@ -51,15 +50,11 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show($id)
     {
-        $language = Language::findOrFail($id);
+        $role = Role::find($id);
 
-        $perPage = $request->input('per_page', 12);
-
-        $book = Book::where('language_id', $language->id)->with('image')->paginate($perPage);
-
-        return new LanguagesShowResource($language, $book);
+        return new RolesResource($role);
     }
 
     /**
@@ -80,11 +75,13 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LanguagesRequest $request, $id)
+    public function update(RolesRequest $request, $id)
     {
-        $language = Language::findOrFail($id);
-        $language->update($request->validated());
-        return response()->json("language updated");
+        $role = Role::find($id);
+
+        $role->update(['name' => $request->input('name')]);
+
+        return response()->json(['message' => 'Role updated successfully']);
     }
 
     /**
@@ -95,8 +92,10 @@ class LanguagesController extends Controller
      */
     public function destroy($id)
     {
-        $language = Language::findOrFail($id);
-        $language->delete();
-        return  response(null,204);
+        $role = Role::find($id);
+
+        $role->delete();
+
+        return response()->json(['message' => 'Role delete successfully']);
     }
 }

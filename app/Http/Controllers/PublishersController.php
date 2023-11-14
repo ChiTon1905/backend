@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Requests\PublishersRequest;
 use App\Http\Resources\PublishersResource;
+use App\Http\Resources\PublishersShowResource;
 
 class PublishersController extends Controller
 {
@@ -50,10 +52,14 @@ class PublishersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        $Publisher = Publisher::findOrFail($id);
-        return new PublishersResource($Publisher);
+        $Publisher = Publisher::find($id);
+
+        $perPage = $request->input('per_page', 12);
+
+        $book = Book::where('publisher_id', $Publisher->id)->with('image')->paginate($perPage);
+        return new PublishersShowResource($Publisher, $book);
     }
 
     /**

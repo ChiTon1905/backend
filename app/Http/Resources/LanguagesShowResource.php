@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LanguagesResource extends JsonResource
+class LanguagesShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,6 +12,11 @@ class LanguagesResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    public function __construct($resource, $book)
+    {
+        parent::__construct($resource);
+        $this->book = $book;
+    }
 
     public function toArray($request)
     {

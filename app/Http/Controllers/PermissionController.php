@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Language;
+use App\Http\Requests\PermissionsRequest;
+use App\Http\Resources\PermissionsResource;
 use Illuminate\Http\Request;
-use App\Http\Requests\LanguagesRequest;
-use App\Http\Resources\LanguagesResource;
-use App\Http\Resources\LanguagesShowResource;
+use Spatie\Permission\Models\Permission;
 
-class LanguagesController extends Controller
+use Spatie\Permission\Traits\RefreshesPermissionCache;
+
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class LanguagesController extends Controller
      */
     public function index()
     {
-        return LanguagesResource::collection(
-            Language::all()
+        return PermissionsResource::collection(
+            Permission::all()
         );
     }
 
@@ -39,10 +39,11 @@ class LanguagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LanguagesRequest $request)
+    public function store(PermissionsRequest $request)
     {
-        Language::create($request->validated());
-        return response()->json("language created");
+        $permission = Permission::create(['name' => $request->input('name')]);
+
+        return response()->json(['message' => 'Permission created successfully']);
     }
 
     /**
@@ -51,15 +52,11 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show($id)
     {
-        $language = Language::findOrFail($id);
+        $permission = Permission::findById($id);
 
-        $perPage = $request->input('per_page', 12);
-
-        $book = Book::where('language_id', $language->id)->with('image')->paginate($perPage);
-
-        return new LanguagesShowResource($language, $book);
+        return new PermissionsResource($permission);
     }
 
     /**
@@ -80,11 +77,13 @@ class LanguagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LanguagesRequest $request, $id)
+    public function update(PermissionsRequest $request, $id)
     {
-        $language = Language::findOrFail($id);
-        $language->update($request->validated());
-        return response()->json("language updated");
+        $permission = Permission::find($id);
+
+        $permission->update(['name' => $request->input('name')]);
+
+        return response()->json(['message' => 'Permission updated successfully']);
     }
 
     /**
@@ -95,8 +94,15 @@ class LanguagesController extends Controller
      */
     public function destroy($id)
     {
-        $language = Language::findOrFail($id);
-        $language->delete();
-        return  response(null,204);
+        $permission = Permission::find($id);
+
+        // Check if the permission exists
+        if ($permission) {
+            $permission->delete();
+
+            return response()->json(['message' => 'Permission deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Permission not found'], 404);
+        }
     }
 }

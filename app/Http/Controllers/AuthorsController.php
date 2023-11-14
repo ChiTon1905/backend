@@ -6,6 +6,10 @@ use App\Models\Author;
 use App\Http\Resources\AuthorsResource;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
+use App\Http\Resources\AuthorsShowResource;
+use App\Models\Author_Book;
+use App\Models\Book;
+use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
 {
@@ -47,9 +51,16 @@ class AuthorsController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show($id,Request $request)
     {
-        return new AuthorsResource($author);
+        $author = Author::find($id);
+        $perPage = $request->input('per_page', 12);
+
+        $authorBooks = $author->books()->pluck('book_id');
+
+        $book = Book::whereIn('id', $authorBooks)->with('image')->paginate($perPage);
+
+        return new AuthorsShowResource($author, $book);
     }
 
     /**
@@ -70,8 +81,9 @@ class AuthorsController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(UpdateAuthorRequest $request, $id)
     {
+        $author = Author::find($id);
         $author->update([
             'name' => $request->input('name')
         ]);
@@ -85,9 +97,10 @@ class AuthorsController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
+        $author = Author::find($id);
         $author->delete();
-        return response()->json("Skill deleted");
+        return response()->json("deleted");
     }
 }

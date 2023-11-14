@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Booklayout;
 use Illuminate\Http\Request;
 use App\Http\Requests\BooklayoutsRequest;
 use App\Http\Resources\BooklayoutsResource;
+use App\Http\Resources\BooklayoutsShowResource;
 
 class BooklayoutsController extends Controller
 {
@@ -49,10 +51,14 @@ class BooklayoutsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
         $Booklayout = Booklayout::findOrFail($id);
-        return new BooklayoutsResource($Booklayout);
+
+        $perPage = $request->input('per_page', 12);
+
+        $book = Book::where('booklayout_id', $Booklayout->id)->with('image')->paginate($perPage);
+        return new BooklayoutsShowResource($Booklayout, $book);
     }
 
     /**
