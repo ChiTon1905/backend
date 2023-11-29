@@ -16,8 +16,12 @@ class UsersResource extends JsonResource
     {
         return [
             'user_id' => $this->id,
+            'google_id' => $this->google_id,
             'name' => $this->name,
             'email' => $this->email,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'genre' => $this->genre,
             'token' => $this->createToken("Token")->plainTextToken,
             'roles' => $this->roles->pluck('name') ,
             'roles.permission' => $this->getPermissionsViaRoles() ,

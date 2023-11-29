@@ -93,7 +93,10 @@ class UsersController extends Controller
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
+            'password' => Hash::make($request->input('password')),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'genre' => $request->input('genre')
         ]);
 
         return response()->json(['message' => 'User updated successfully']);

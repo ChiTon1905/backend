@@ -11,13 +11,18 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PromotionsController;
 use App\Http\Controllers\PublishersController;
 use App\Http\Controllers\BooklayoutsController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionToRoleController;
 use App\Http\Controllers\PermissionToUserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\RoletoUserController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WishListController;
 use Spatie\Permission\Contracts\Permission;
 
 /*
@@ -99,9 +104,27 @@ Route::post('/remove-role-to-user', [RoletoUserController::class, 'removeRoleToU
 
 Route::post('/give-permission-to-user', [PermissionToUserController::class, 'givePermissionToUser']);
 
+Route::post('/search', [SearchController::class, 'search']);
+
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
+
+
+Route::post('/loginWithGoogle', [GoogleController::class, 'loginWithGoogle']);
+
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::post('/save-google-user', [GoogleController::class, 'saveUser']);
+
+Route::post('/store-order', [OrderController::class, 'store']);
+
+Route::get('/orderhistory',[OrderHistoryController::class,'orderHistory']);
+Route::get('/orderhistory/{id}',[OrderHistoryController::class,'showOrderDetailHistory']);
+
+Route::post('/wishlist/createordelete',[WishListController::class,'createorDeleteWishList']);
+Route::get('/wishlist',[WishListController::class,'showWishList']);
 
 //protected route
 Route::group(['middleware' => ['auth:sanctum']], function(){

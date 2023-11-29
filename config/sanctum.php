@@ -31,7 +31,17 @@ return [
     |
     */
 
-    'guard' => ['web'],
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +70,7 @@ return [
     'middleware' => [
         'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
+        \Fruitcake\Cors\HandleCors::class,
     ],
 
 ];
