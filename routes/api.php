@@ -15,6 +15,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionToRoleController;
 use App\Http\Controllers\PermissionToUserController;
@@ -126,9 +127,13 @@ Route::get('/orderhistory/{id}',[OrderHistoryController::class,'showOrderDetailH
 Route::post('/wishlist/createordelete',[WishListController::class,'createorDeleteWishList']);
 Route::get('/wishlist',[WishListController::class,'showWishList']);
 
+Route::post('/process-payment', [PaymentController::class, 'process_payment']);
+
 //protected route
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('logout', [AuthController::class, 'logout']);
+
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

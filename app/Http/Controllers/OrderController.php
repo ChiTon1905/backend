@@ -52,7 +52,8 @@ class OrderController extends Controller
              $order = Order::create([
                  'user_id' => $user->id,
                  'date' => $date,
-                 'total' => $request->input('total')
+                 'total' => $request->input('total'),
+                 'payment' => $request->input('payment')
              ]);
 
              // Store order details

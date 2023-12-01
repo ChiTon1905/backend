@@ -17,6 +17,7 @@ class Order extends Model
         'date',
         'total',
         'order_code',
+        'payment',
     ];
 
     protected $hidden = [
