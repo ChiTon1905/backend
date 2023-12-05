@@ -101,6 +101,13 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $category = Categories::find($id);
+        $associatedBooksCount = $category->book()->count();
+
+        if ($associatedBooksCount > 0) {
+            return response()->json(['message' => 'Cannot delete category with associated books.'], 422);
+        }
+
+        // If no associated books, proceed with deletion
         $category->delete();
         return  response(null, 204);
     }

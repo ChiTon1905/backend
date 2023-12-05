@@ -96,6 +96,12 @@ class PublishersController extends Controller
     public function destroy($id)
     {
         $Publisher = Publisher::findOrFail($id);
+        $BooksCount = $Publisher->book()->count();
+
+        if ($BooksCount > 0) {
+            return response()->json(['message' => 'Cannot delete with associated books.'], 422);
+        }
+
         $Publisher->delete();
         return  response(null,204);
     }

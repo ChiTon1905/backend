@@ -24,6 +24,8 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        $role = $user->getRoleNames()->first();
+
         return $this->success(
             [
                 'user' => $user,

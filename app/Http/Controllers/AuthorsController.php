@@ -100,6 +100,12 @@ class AuthorsController extends Controller
     public function destroy($id)
     {
         $author = Author::find($id);
+        $BooksCount = $author->books()->count();
+
+        if ($BooksCount > 0) {
+            return response()->json(['message' => 'Cannot delete with associated books.'], 422);
+        }
+
         $author->delete();
         return response()->json("deleted");
     }

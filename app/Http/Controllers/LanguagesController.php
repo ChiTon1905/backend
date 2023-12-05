@@ -96,6 +96,12 @@ class LanguagesController extends Controller
     public function destroy($id)
     {
         $language = Language::findOrFail($id);
+        $BooksCount = $language->book()->count();
+
+        if ($BooksCount > 0) {
+            return response()->json(['message' => 'Cannot delete  with associated books.'], 422);
+        }
+
         $language->delete();
         return  response(null,204);
     }
