@@ -1,30 +1,32 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\AuthorsController;
-use App\Http\Controllers\LanguagesController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PromotionsController;
-use App\Http\Controllers\PublishersController;
-use App\Http\Controllers\BooklayoutsController;
-use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\PaymentController;
+use Spatie\Permission\Contracts\Permission;
+use App\Http\Controllers\DataBookController;
+use App\Http\Controllers\WishListController;
+use App\Http\Controllers\LanguagesController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PromotionsController;
+use App\Http\Controllers\PublishersController;
+use App\Http\Controllers\RoletoUserController;
+use App\Http\Controllers\BooklayoutsController;
+use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\PermissionToRoleController;
 use App\Http\Controllers\PermissionToUserController;
-use App\Http\Controllers\RolesController;
-use App\Http\Controllers\RoletoUserController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\WishListController;
-use Spatie\Permission\Contracts\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,11 +51,14 @@ Route::post('/categories/store', [CategoriesController::class, 'store']);
 Route::post('/categories/{id}', [CategoriesController::class, 'update']);
 Route::post('/categories/delete/{id}', [CategoriesController::class, 'destroy']);
 
+Route::get('/books/index', [DataBookController::class, 'index']);
 Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/{id}', [BookController::class, 'show']);
 Route::post('/books/store', [BookController::class, 'store']);
 Route::post('/books/{id}', [BookController::class, 'update']);
 Route::post('/books/delete/{id}', [BookController::class, 'destroy']);
+Route::post('/books/uploadimage/{id}', [ImageController::class, 'uploadImage']);
+Route::post('/books/{bookId}/images/{imageId}', [ImageController::class, 'deleteImage']);
 
 Route::get('/languages', [LanguagesController::class, 'index']);
 Route::get('/languages/{id}', [LanguagesController::class, 'show']);

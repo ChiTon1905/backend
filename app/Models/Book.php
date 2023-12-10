@@ -14,7 +14,7 @@ class Book extends Model
         'id',
         'name',
         'description',
-        'publication_year',
+        'publication_day',
         'quantity',
         'price',
         'categories_id',
@@ -23,6 +23,7 @@ class Book extends Model
         'booklayout_id',
         'language_id',
     ];
+    protected $dates = ['publication_day'];
 
     protected $hidden = [
         //'laravel_through_key',

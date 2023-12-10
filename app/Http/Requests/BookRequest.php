@@ -27,7 +27,7 @@ class BookRequest extends FormRequest
         return [
             'name' => ['required', Rule::unique('books')->ignore($this->book)],
             'description' => 'nullable|string',
-            'publication_year' => 'required|string',
+            'publication_day' => 'nullable|date',
             'quantity' => 'required|integer',
             'price' => 'required|numeric',
             'categories_id' => 'required|exists:categories,id',

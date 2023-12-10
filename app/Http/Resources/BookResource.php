@@ -27,7 +27,7 @@ class BookResource extends JsonResource
                     'language' => $this->language,
                     'promotion' => $this->promotion,
                     'description' => $this->description,
-                    'publication_year' => $this->publication_year,
+                    'publication_day' => $this->publication_day,
                     'quantity' => $this->quantity,
                     'price' => $this->price,
                     'created_at' => $this->created_at,

@@ -26,7 +26,7 @@ class BookController extends Controller
 
 
         return BookPaginateResource::collection(
-           $data
+            $data
         );
     }
 
@@ -51,7 +51,7 @@ class BookController extends Controller
         $book = new Book();
         $book->name = $request->name;
         $book->description = $request->description;
-        $book->publication_year = $request->publication_year;
+        $book->publication_day = $request->publication_day;
         $book->quantity = $request->quantity;
         $book->price = $request->price;
         $book->categories_id = $request->categories_id;
@@ -109,13 +109,13 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //can chinh sua
+        //can chinh sua chua co update image
         $book = Book::findOrFail($id);
 
         $validatedData = $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'publication_year' => 'required|string',
+            'publication_day' => 'nullable|date',
             'quantity' => 'required|integer',
             'price' => 'required|numeric',
             'categories_id' => 'required|exists:categories,id',
@@ -141,9 +141,33 @@ class BookController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        // Find the book by ID or return a 404 response
         $book = Book::findOrFail($id);
-        $book->image()->delete();
+
+        // Check if the book is associated with any order_detail
+        if ($book->orderDetails()->exists()) {
+            return response()->json("Cannot delete the book because it is associated with order_details", 422);
+        }
+
+        // Delete the associated images
+        foreach ($book->image as $image) {
+            $this->deleteImageFile($image->image_path);
+        }
+
+        // Delete the book
         $book->delete();
-        return  response(null, 204);
+
+        return response()->json(null, 204);
+    }
+
+    private function deleteImageFile($imageName)
+    {
+        $filePath = public_path('images/' . $imageName);
+
+        // Check if the file exists before attempting to delete
+        if (file_exists($filePath)) {
+            // Delete the image file from public/images
+            unlink($filePath);
+        }
     }
 }
