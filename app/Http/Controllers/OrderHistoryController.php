@@ -12,7 +12,9 @@ class OrderHistoryController extends Controller
 {
     public function orderHistory(Request $request)
     {
-        $order = Order::where('user_id', $request->input('user_id'))->paginate(8);
+        $order = Order::where('user_id', $request->input('user_id'))
+        ->orderBy('date', 'desc') // Sắp xếp theo thời gian tạo đơn hàng giảm dần (mới nhất trên đầu)
+        ->paginate(8);
 
         return [
             'order' => $order,

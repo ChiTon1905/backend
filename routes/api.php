@@ -104,11 +104,15 @@ Route::post('/users/delete/{id}', [UsersController::class, 'destroy']);
 
 Route::post('/give-permission-to-role', [PermissionToRoleController::class, 'givePermissionToRole']);
 Route::post('/revoke-permission-to-role', [PermissionToRoleController::class, 'revokePermissionToRole']);
+Route::post('/manage-permissions-to-user/{id}', [PermissionToUserController::class, 'manageUserPermissions']);
 
 Route::post('/give-role-to-user', [RoletoUserController::class, 'giveRoleToUser']);
 Route::post('/remove-role-to-user', [RoletoUserController::class, 'removeRoleToUser']);
+Route::post('/manage-role-to-user/{id}', [RoletoUserController::class, 'manageUserRoles']);
 
 Route::post('/give-permission-to-user', [PermissionToUserController::class, 'givePermissionToUser']);
+Route::get('/customer', [UsersController::class, 'customer']);
+Route::get('/employee', [UsersController::class, 'employee']);
 
 Route::post('/search', [SearchController::class, 'search']);
 
@@ -116,23 +120,28 @@ Route::post('/search', [SearchController::class, 'search']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
-
-Route::post('/loginWithGoogle', [GoogleController::class, 'loginWithGoogle']);
-
-Route::get('/login/google', [GoogleController::class, 'redirectToGoogle']);
-Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-
 Route::post('/save-google-user', [GoogleController::class, 'saveUser']);
 
 Route::post('/store-order', [OrderController::class, 'store']);
 
 Route::get('/orderhistory',[OrderHistoryController::class,'orderHistory']);
 Route::get('/orderhistory/{id}',[OrderHistoryController::class,'showOrderDetailHistory']);
+Route::get('/order/{id}',[OrderController::class,'show']);
+Route::get('/order',[OrderController::class,'index']);
+Route::post('/order/{id}',[OrderController::class,'update']);
+Route::post('/order/delete/{id}',[OrderController::class,'destroy']);
+Route::post('/order/confirm-order/{id}',[OrderController::class,'confirmReceived']);
+Route::post('/order/cancel-order/{id}',[OrderController::class,'cancelOrder']);
+Route::post('/order/pending-order/{id}',[OrderController::class,'pendingOrder']);
+
+
 
 Route::post('/wishlist/createordelete',[WishListController::class,'createorDeleteWishList']);
 Route::get('/wishlist',[WishListController::class,'showWishList']);
 
 Route::post('/process-payment', [PaymentController::class, 'process_payment']);
+Route::post('/users/{id}/lock',[UsersController::class, 'lock']);
+Route::post('/users/{id}/unlock',[UsersController::class, 'unlock']);
 
 //protected route
 Route::group(['middleware' => ['auth:sanctum']], function(){

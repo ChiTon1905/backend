@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UsersRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UsersResource;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -18,7 +19,7 @@ class UsersController extends Controller
     public function index()
     {
         return UsersResource::collection(
-            User::all()
+            User::take(100)->get()
         );
     }
 
@@ -87,20 +88,17 @@ class UsersController extends Controller
         $validatedData = $request->validate([
             'name' => 'string|max:255',
             'email' => 'email|unique:users,email,' . $user->id,
-            'password' => 'string|min:6',
         ]);
 
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'genre' => $request->input('genre')
         ]);
 
         return response()->json(['message' => 'User updated successfully']);
-
     }
 
     /**
@@ -113,8 +111,61 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        $user->detele();
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
 
-        return response()->json(['message' => 'User delete successfully']);
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+
+    public function customer()
+    {
+        // Get users with the 'user' role
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', 'user');
+        })->get();
+
+        // Do something with the users or return as JSON
+        return response()->json(['users' => $users], 200);
+    }
+
+    public function employee()
+    {
+        // Get users without the 'user' role
+        $users = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'user');
+        })->with('roles')->get();
+
+        // Do something with the users or return as JSON
+        return response()->json(['users' => $users], 200);
+    }
+
+    public function lock($id)
+    {
+        $user = User::find($id);
+
+        // Check if the user is already locked
+        if ($user->is_locked == true) {
+            return response()->json(['message' => 'User is already locked']);
+        } else {
+
+            // Lock the user
+            $user->update(['is_locked' => true]);
+
+            return response()->json(['message' => 'User locked successfully']);
+        }
+    }
+
+    public function unlock($id)
+    {
+        $user = User::find($id);
+        if ($user->is_locked == false) {
+            return response()->json(['message' => 'User is already unlocked']);
+        }
+        $user->update(['is_locked' => false]);
+
+        return response()->json(['message' => 'User unlocked successfully']);
     }
 }

@@ -25,9 +25,6 @@ class RoletoUserController extends Controller
         $user = User::find($userId);
 
 
-
-
-
         if ($role && $user) {
             // Assign the permission to the role
             $user->assignRole($role);
@@ -65,5 +62,33 @@ class RoletoUserController extends Controller
         }
 
         return response()->json(['message' => 'Role or user not found'], 404);
+    }
+
+    public function manageUserRoles(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'roles' => 'required|array',
+        ]);
+
+        // Get the roles and user ID from the request
+        $roles = $request->input('roles');
+
+        // Check if the user exists
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Get role models for the given role names
+        $roleModels = Role::whereIn('name', $roles)->get();
+
+        // Use syncRoles to replace the user's roles with the provided roles
+        $user->syncRoles($roleModels);
+
+        $userName = $user->name;
+
+        return response()->json(['message' => "Roles have been replaced for user '$userName'"], 200);
     }
 }

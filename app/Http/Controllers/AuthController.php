@@ -18,20 +18,25 @@ class AuthController extends Controller
     {
         $request->validated($request->all());
 
-        if (!Auth::attempt($request->only(['email', 'password']))) {
+        $credentials = $request->only(['email', 'password']);
+
+        if (!Auth::attempt($credentials)) {
             return $this->error('', 'Credentials do not match', 401);
         }
 
         $user = User::where('email', $request->email)->first();
 
+        if ($user->is_locked == true) {
+            Auth::logout(); // Logout the user
+            return response()->json(['message' => 'User is locked'], 403);
+        }
+
         $role = $user->getRoleNames()->first();
 
-        return $this->success(
-            [
-                'user' => $user,
-                'token' => $user->createToken('Api token of' . $user->name)->plainTextToken,
-            ]
-        );
+        return $this->success([
+            'user'  => $user,
+            'token' => $user->createToken('Api token of' . $user->name)->plainTextToken,
+        ]);
     }
 
     public function register(StoreUserRequest $request)

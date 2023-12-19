@@ -36,4 +36,32 @@ class PermissionToUserController extends Controller
         return response()->json(['message' => 'Permission or user not found'], 404);
     }
 
+    public function manageUserPermissions(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'permissions' => 'required|array',
+        ]);
+
+        // Get the permissions from the request
+        $permissions = $request->input('permissions');
+
+        // Check if the user exists
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Get Permissions models for the given Permissions names
+        $permissionModels = Permission::whereIn('name', $permissions)->get();
+
+        // Use syncPermissions to replace the user's cPermissions with the provided Permissions
+        $user->syncPermissions($permissionModels);
+
+        $userName = $user->name;
+
+        return response()->json(['message' => "Permissions have been replaced for user '$userName'"], 200);
+    }
+
 }

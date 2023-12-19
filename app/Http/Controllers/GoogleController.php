@@ -13,65 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class GoogleController extends Controller
 {
-    public function loginWithGoogle(Request $request)
-    {
-        $response = Http::post('https://www.googleapis.com/oauth2/v3/tokeninfo', [
-            'access_token' => $request->input('access_token'),
-        ]);
-
-        $googleUserData = $response->json();
-
-        $user = User::where('google_id', $googleUserData['sub'])->first();
-
-        // If the user doesn't exist, create a new user
-        if (!$user) {
-            $user = User::create([
-                'name' => $googleUserData['name'],
-                'email' => $googleUserData['email'],
-                'google_id' => $googleUserData['sub'],
-            ]);
-        }
-
-        // Log in the user
-        Auth::login($user);
-
-        // You may generate a Sanctum token here if needed
-        $token = $user->createToken('token-google')->plainTextToken;
-        return response()->json(['token' => $token, 'user' => $user]);
-    }
-
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function handleGoogleCallback()
-    {
-        try {
-            $googleUser = Socialite::driver('google')->user();
-            // Check if the user exists in your database
-            $user = User::where('email', $googleUser->getEmail())->first();
-
-            if (!$user) {
-                // Create a new user
-                $user = User::create([
-                    'name' => $googleUser->getName(),
-                    'email' => $googleUser->getEmail(),
-                    // Add any other fields you want to fill
-                ]);
-            }
-
-            // Log in the user
-            Auth::login($user);
-
-            // Generate and return a Sanctum token
-            $token = $user->createToken('google-login')->plainTextToken;
-            return response()->json(['token' => $token, 'user' => $user]);
-        } catch (\Exception $e) {
-            // Handle exception
-            return response()->json(['error' => 'Google login failed'], 500);
-        }
-    }
 
     public function saveUser(Request $request)
     {
@@ -80,6 +21,10 @@ class GoogleController extends Controller
         $user = User::where('email', $request->input('email'))->first();
 
         if ($user) {
+            if ($user->is_locked == true) {
+                Auth::logout(); // Logout the user
+                return response()->json(['message' => 'User is locked'], 403);
+            }
             // If the user exists, you can update their information if needed
             $user->update([
                 'name' => $request->input('name'),
@@ -94,6 +39,8 @@ class GoogleController extends Controller
                 'password' => Hash::make('user123')
             ]);
         }
+
+        $user->assignRole('user');
 
         // Assuming you want to authenticate the user after saving the information
         Auth::login($user);

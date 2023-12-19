@@ -20,7 +20,7 @@ class PromotionsController extends Controller
     public function index()
     {
         return PromotionsResource::collection(
-            Promotion::all()
+            Promotion::take(100)->get()
         );
     }
 
@@ -45,8 +45,8 @@ class PromotionsController extends Controller
         $p = new Promotion();
         $p->name = $request->name;
         $p->description = $request->description;
-        $p->start_date = Carbon::createFromFormat('d-m-Y', $request->input('start_date'));
-        $p->end_date = Carbon::createFromFormat('d-m-Y', $request->input('end_date'));
+        $p->start_date =$request->input('start_date');
+        $p->end_date = $request->input('end_date');
         $p->discount = $request->discount;
 
         $p->save();
@@ -91,9 +91,8 @@ class PromotionsController extends Controller
         $p->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'start_date' => Carbon::createFromFormat('d-m-Y', $request->input('start_date')),
-            'end_date' => Carbon::createFromFormat('d-m-Y', $request->input('end_date')),
-            'discount' => $request->input('discount'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
         ]);
 
         return new PromotionsResource($p);

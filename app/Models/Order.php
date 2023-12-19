@@ -18,6 +18,8 @@ class Order extends Model
         'total',
         'order_code',
         'payment',
+        'status',
+        'has_received'
     ];
 
     protected $hidden = [
@@ -46,7 +48,7 @@ class Order extends Model
         return $this->hasMany(OrderDetails::class);
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
