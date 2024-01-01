@@ -65,4 +65,17 @@ class AuthController extends Controller
             'message' => 'you have sucessfully been logged out and your token has been deleted '
         ]);
     }
+
+    public function check()
+    {
+        if(Auth::user()){
+            return response()->json([
+                'message' => 'true '
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'false'
+        ]);
+    }
 }

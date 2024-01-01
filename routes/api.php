@@ -39,17 +39,14 @@ use App\Http\Controllers\PermissionToUserController;
 |
 */
 
-Route::get('/authors', [AuthorsController::class,'index']);
-Route::get('/authors/{id}', [AuthorsController::class, 'show']);
-Route::post('/authors/store', [AuthorsController::class, 'store']);
-Route::post('/authors/{id}', [AuthorsController::class, 'update']);
-Route::post('/authors/delete/{id}', [AuthorsController::class, 'destroy']);
+//protected route
 
-Route::get('/categories', [CategoriesController::class,'index']);
+Route::get('/authors', [AuthorsController::class, 'index']);
+Route::get('/authors/{id}', [AuthorsController::class, 'show']);
+
+Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/categories/{id}', [CategoriesController::class, 'show']);
-Route::post('/categories/store', [CategoriesController::class, 'store']);
-Route::post('/categories/{id}', [CategoriesController::class, 'update']);
-Route::post('/categories/delete/{id}', [CategoriesController::class, 'destroy']);
+
 
 Route::get('/books/index', [DataBookController::class, 'index']);
 Route::get('/books', [BookController::class, 'index']);
@@ -62,27 +59,18 @@ Route::post('/books/{bookId}/images/{imageId}', [ImageController::class, 'delete
 
 Route::get('/languages', [LanguagesController::class, 'index']);
 Route::get('/languages/{id}', [LanguagesController::class, 'show']);
-Route::post('/languages/store', [LanguagesController::class, 'store']);
-Route::post('/languages/{id}', [LanguagesController::class, 'update']);
-Route::post('/languages/delete/{id}', [LanguagesController::class, 'destroy']);
+
 
 Route::get('/publishers', [PublishersController::class, 'index']);
 Route::get('/publishers/{id}', [PublishersController::class, 'show']);
-Route::post('/publishers/store', [PublishersController::class, 'store']);
-Route::post('/publishers/{id}', [PublishersController::class, 'update']);
-Route::post('/publishers/delete/{id}', [PublishersController::class, 'destroy']);
 
 Route::get('/booklayouts', [BooklayoutsController::class, 'index']);
 Route::get('/booklayouts/{id}', [BooklayoutsController::class, 'show']);
-Route::post('/booklayouts/store', [BooklayoutsController::class, 'store']);
-Route::post('/booklayouts/{id}', [BooklayoutsController::class, 'update']);
-Route::post('/booklayouts/delete/{id}', [BooklayoutsController::class, 'destroy']);
+
 
 Route::get('/promotions', [PromotionsController::class, 'index']);
 Route::get('/promotions/{id}', [PromotionsController::class, 'show']);
-Route::post('/promotions/store', [PromotionsController::class, 'store']);
-Route::post('/promotions/{id}', [PromotionsController::class, 'update']);
-Route::post('/promotions/delete/{id}', [PromotionsController::class, 'destroy']);
+
 
 Route::get('/permissions', [PermissionController::class, 'index']);
 Route::get('/permissions/{id}', [PermissionController::class, 'show']);
@@ -118,37 +106,63 @@ Route::post('/search', [SearchController::class, 'search']);
 
 
 Route::post('login', [AuthController::class, 'login']);
+
 Route::post('register', [AuthController::class, 'register']);
 
 Route::post('/save-google-user', [GoogleController::class, 'saveUser']);
 
 Route::post('/store-order', [OrderController::class, 'store']);
 
-Route::get('/orderhistory',[OrderHistoryController::class,'orderHistory']);
-Route::get('/orderhistory/{id}',[OrderHistoryController::class,'showOrderDetailHistory']);
-Route::get('/order/{id}',[OrderController::class,'show']);
-Route::get('/order',[OrderController::class,'index']);
-Route::post('/order/{id}',[OrderController::class,'update']);
-Route::post('/order/delete/{id}',[OrderController::class,'destroy']);
-Route::post('/order/confirm-order/{id}',[OrderController::class,'confirmReceived']);
-Route::post('/order/cancel-order/{id}',[OrderController::class,'cancelOrder']);
-Route::post('/order/pending-order/{id}',[OrderController::class,'pendingOrder']);
+Route::get('/orderhistory', [OrderHistoryController::class, 'orderHistory']);
+Route::get('/orderhistory/{id}', [OrderHistoryController::class, 'showOrderDetailHistory']);
+Route::get('/order/{id}', [OrderController::class, 'show']);
+Route::get('/order', [OrderController::class, 'index']);
+Route::post('/order/{id}', [OrderController::class, 'update']);
+Route::post('/order/delete/{id}', [OrderController::class, 'destroy']);
+Route::post('/order/confirm-order/{id}', [OrderController::class, 'confirmReceived']);
+Route::post('/order/cancel-order/{id}', [OrderController::class, 'cancelOrder']);
+Route::post('/order/pending-order/{id}', [OrderController::class, 'pendingOrder']);
 
 
 
-Route::post('/wishlist/createordelete',[WishListController::class,'createorDeleteWishList']);
-Route::get('/wishlist',[WishListController::class,'showWishList']);
+Route::post('/wishlist/createordelete', [WishListController::class, 'createorDeleteWishList']);
+Route::get('/wishlist', [WishListController::class, 'showWishList']);
 
 Route::post('/process-payment', [PaymentController::class, 'process_payment']);
-Route::post('/users/{id}/lock',[UsersController::class, 'lock']);
-Route::post('/users/{id}/unlock',[UsersController::class, 'unlock']);
 
-//protected route
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('check', [AuthController::class, 'check']);
 
+    Route::middleware('permission:category.store')->post('/categories/store', [CategoriesController::class, 'store']);
+    Route::middleware('permission:category.update')->post('/categories/{id}', [CategoriesController::class, 'update']);
+    Route::middleware('permission:category.delete')->post('/categories/delete/{id}', [CategoriesController::class, 'destroy']);
 
+    Route::middleware('permission:author.store')->post('/authors/store', [AuthorsController::class, 'store']);
+    Route::middleware('permission:author.update')->post('/authors/{id}', [AuthorsController::class, 'update']);
+    Route::middleware('permission:author.delete')->post('/authors/delete/{id}', [AuthorsController::class, 'destroy']);
+
+    Route::middleware('permission:language.store')->post('/languages/store', [LanguagesController::class, 'store']);
+    Route::middleware('permission:language.update')->post('/languages/{id}', [LanguagesController::class, 'update']);
+    Route::middleware('permission:language.delete')->post('/languages/delete/{id}', [LanguagesController::class, 'destroy']);
+
+    Route::middleware('permission:publisher.store')->post('/publishers/store', [PublishersController::class, 'store']);
+    Route::middleware('permission:publisher.update')->post('/publishers/{id}', [PublishersController::class, 'update']);
+    Route::middleware('permission:publisher.delete')->post('/publishers/delete/{id}', [PublishersController::class, 'destroy']);
+
+    Route::middleware('permission:booklayout.store')->post('/booklayouts/store', [BooklayoutsController::class, 'store']);
+    Route::middleware('permission:booklayout.update')->post('/booklayouts/{id}', [BooklayoutsController::class, 'update']);
+    Route::middleware('permission:booklayout.delete')->post('/booklayouts/delete/{id}', [BooklayoutsController::class, 'destroy']);
+
+    Route::middleware('permission:promotion.store')->post('/promotions/store', [PromotionsController::class, 'store']);
+    Route::middleware('permission:promotion.update')->post('/promotions/{id}', [PromotionsController::class, 'update']);
+    Route::middleware('permission:promotion.delete')->post('/promotions/delete/{id}', [PromotionsController::class, 'destroy']);
+
+    Route::middleware('permission:user.lock')->post('/users/{id}/lock', [UsersController::class, 'lock']);
+    Route::middleware('permission:user.unlock')->post('/users/{id}/unlock', [UsersController::class, 'unlock']);
 });
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
