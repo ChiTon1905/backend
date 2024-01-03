@@ -19,7 +19,11 @@ class Order extends Model
         'order_code',
         'payment',
         'status',
-        'has_received'
+        'has_received',
+        'receiver',
+        'email_receiver',
+        'phone_receiver',
+        'address_receiver'
     ];
 
     protected $hidden = [

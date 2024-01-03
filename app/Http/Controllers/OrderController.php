@@ -46,6 +46,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'receiver' => 'required',
+            'email_receiver' => 'required',
+            'address_receiver' => 'required',
+            'phone_receiver' => 'required',
+        ]);
         //Tim user
         // thay doi ham`
         $user = User::find($request->input('user_id'));
@@ -53,17 +59,16 @@ class OrderController extends Controller
         $date = now();
 
         if ($user) {
-            $user->update([
-                'address' => $request->input('address'),
-                'phone' => $request->input('phone')
-            ]);
-
             // Create a new order
             $order = Order::create([
                 'user_id' => $user->id,
                 'date' => $date,
                 'total' => $request->input('total'),
-                'payment' => $request->input('payment')
+                'payment' => $request->input('payment'),
+                'receiver' => $request->input('receiver'),
+                'email_receiver' => $request->input('email_receiver'),
+                'address_receiver' => $request->input('address_receiver'),
+                'phone_receiver' => $request->input('phone_receiver')
             ]);
 
             // Store order details
@@ -138,6 +143,10 @@ class OrderController extends Controller
         // Check if the order has been cancel by user
         if ($order->status === 'hủy') {
             return response()->json(['message' => 'Đơn hàng đã bị hủy từ trước']);
+        }elseif ($order->status === 'đã nhận') {
+            return response()->json(['message' => 'Đơn hàng đã nhận, không thể xác nhận']);
+        } elseif ($order->status === 'bùng hàng') {
+            return response()->json(['message' => 'Đơn hàng đã bùng hàng, không thể xác nhận']);
         }
 
         $orderDetails = $order->orderDetails;
@@ -208,6 +217,9 @@ class OrderController extends Controller
             return response()->json(['message' => 'Cửa hàng chưa xác nhận đơn hàng']);
         }
 
+         if ($order->status === 'bùng hàng') {
+            return response()->json(['message' => 'Đơn hàng đã bị bùng hàng từ trước']);
+        }
 
         // Update the status and set has_received to true
         $order->update(['status' => 'đã nhận', 'has_received' => true]);
@@ -228,6 +240,8 @@ class OrderController extends Controller
             return response()->json(['message' => 'Đơn hàng đã bị hủy từ trước']);
         } elseif ($order->status === 'đã nhận') {
             return response()->json(['message' => 'Đơn hàng đã được xác nhận nhận, không thể hủy']);
+        } elseif ($order->status === 'bùng hàng') {
+            return response()->json(['message' => 'Đơn hàng đã được bùng hàng, không thể hủy']);
         }
         if ($order->status === 'chưa xác nhận') {
             $order->update(['status' => 'hủy']);
@@ -264,6 +278,8 @@ class OrderController extends Controller
             return response()->json(['message' => 'Đơn hàng đã bị hủy từ trước']);
         } elseif ($order->status === 'đã nhận') {
             return response()->json(['message' => 'Đơn hàng đã được xác nhận nhận, không thể chưa xác nhận']);
+        } elseif ($order->status === 'bùng hàng') {
+            return response()->json(['message' => 'Đơn hàng đã bùng hàng, không thể chưa xác nhận']);
         }
 
         // Update the status to 'chưa xác nhận'
@@ -281,5 +297,41 @@ class OrderController extends Controller
         }
 
         return response()->json(['message' => 'Đơn hàng chưa xác nhận']);
+    }
+
+    public function flaker($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+
+        // Check if the order has already been cancelled or received
+        if ($order->status === 'hủy') {
+            return response()->json(['message' => 'Đơn hàng đã bị hủy từ trước']);
+        } elseif ($order->status === 'đã nhận') {
+            return response()->json(['message' => 'Đơn hàng đã được xác nhận nhận, không thể chưa xác nhận']);
+        }
+        if ($order->status === 'chưa xác nhận') {
+            $order->update(['status' => 'bùng hàng']);
+            return response()->json(['message' => 'Đơn hàng đã được bùng hàng']);
+        } else {
+            // Update the status to 'bùng'
+            $order->update(['status' => 'bùng hàng']);
+
+            $orderDetails = $order->orderDetails;
+
+            // Adjust book quantities
+            foreach ($orderDetails as $orderDetail) {
+                $book = $orderDetail->book;
+                $newQuantity = $book->quantity + $orderDetail->quantity;
+
+                // Update the quantity of the book
+                $book->update(['quantity' => $newQuantity]);
+            }
+
+            return response()->json(['message' => 'Đơn hàng đã được bùng hàng']);
+        }
     }
 }

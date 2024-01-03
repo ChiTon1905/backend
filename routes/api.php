@@ -17,6 +17,7 @@ use App\Http\Controllers\PaymentController;
 use Spatie\Permission\Contracts\Permission;
 use App\Http\Controllers\DataBookController;
 use App\Http\Controllers\WishListController;
+use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PermissionController;
@@ -122,6 +123,7 @@ Route::post('/order/delete/{id}', [OrderController::class, 'destroy']);
 Route::post('/order/confirm-order/{id}', [OrderController::class, 'confirmReceived']);
 Route::post('/order/cancel-order/{id}', [OrderController::class, 'cancelOrder']);
 Route::post('/order/pending-order/{id}', [OrderController::class, 'pendingOrder']);
+Route::post('/order/boom-order/{id}', [OrderController::class, 'flaker']);
 
 
 
@@ -162,7 +164,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('permission:user.unlock')->post('/users/{id}/unlock', [UsersController::class, 'unlock']);
 });
 
-
+    Route::get('/dashboard', [DashBoardController::class, 'ecommerce']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
