@@ -131,12 +131,15 @@ class UsersController extends Controller
         return response()->json(['users' => $users], 200);
     }
 
-    public function employee()
+    public function employee(Request $request)
     {
         // Get users without the 'user' role
         $users = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'user');
-        })->with('roles')->get();
+        })
+        ->where('id', '<>', $request->input('user_id'))
+        ->with('roles')
+        ->get();
 
         // Do something with the users or return as JSON
         return response()->json(['users' => $users], 200);

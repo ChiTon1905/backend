@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th12 19, 2023 lúc 03:11 PM
+-- Thời gian đã tạo: Th1 19, 2024 lúc 04:33 PM
 -- Phiên bản máy phục vụ: 8.0.31
 -- Phiên bản PHP: 8.0.26
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `author_book` (
   PRIMARY KEY (`id`),
   KEY `author_book_author_id_foreign` (`author_id`),
   KEY `author_book_book_id_foreign` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `author_book`
@@ -73,7 +73,7 @@ INSERT INTO `author_book` (`id`, `author_id`, `book_id`, `created_at`, `updated_
 (26, 5, 17, NULL, NULL),
 (25, 2, 11, NULL, NULL),
 (24, 2, 12, NULL, NULL),
-(23, 2, 13, NULL, NULL),
+(48, 1, 13, NULL, NULL),
 (22, 4, 14, NULL, NULL),
 (18, 2, 47, NULL, NULL),
 (17, 1, 47, NULL, NULL),
@@ -91,7 +91,16 @@ INSERT INTO `author_book` (`id`, `author_id`, `book_id`, `created_at`, `updated_
 (36, 7, 51, NULL, NULL),
 (38, 2, 52, NULL, NULL),
 (39, 4, 52, NULL, NULL),
-(41, 5, 49, NULL, NULL);
+(41, 5, 49, NULL, NULL),
+(51, 2, 57, NULL, NULL),
+(50, 2, 56, NULL, NULL),
+(49, 4, 13, NULL, NULL),
+(52, 1, 58, NULL, NULL),
+(53, 4, 58, NULL, NULL),
+(54, 2, 59, NULL, NULL),
+(55, 5, 59, NULL, NULL),
+(56, 2, 60, NULL, NULL),
+(57, 5, 60, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -143,26 +152,31 @@ CREATE TABLE IF NOT EXISTS `books` (
   KEY `books_languages_id_foreign` (`language_id`),
   KEY `books_promotions_id_foreign` (`promotion_id`),
   KEY `books_booklayouts_id_foreign` (`booklayout_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `books`
 --
 
 INSERT INTO `books` (`id`, `name`, `description`, `quantity`, `price`, `categories_id`, `publisher_id`, `language_id`, `booklayout_id`, `promotion_id`, `created_at`, `updated_at`, `publication_day`) VALUES
-(15, 'Sói già phố Wall - Phần 2', NULL, 12, 150000, 1, 2, 1, 2, 2, '2023-10-18 23:57:21', '2023-12-13 20:01:11', NULL),
-(14, 'Sói già phố Wall - Phần 1', NULL, 10, 150000, 1, 3, 1, 2, 2, '2023-10-18 23:57:10', '2023-12-19 01:45:30', '1970-01-01'),
-(13, 'Làm bạn với bầu trời', NULL, 10, 100000, 2, 2, 1, 2, 2, '2023-10-18 23:52:59', '2023-10-18 23:52:59', NULL),
-(12, 'Tôi là BêTô', NULL, 10, 100000, 2, 2, 1, 2, 2, '2023-10-18 23:52:28', '2023-10-18 23:52:28', NULL),
+(15, 'Sói già phố Wall - Phần 2', NULL, 36, 150000, 1, 2, 1, 2, 2, '2023-10-18 23:57:21', '2024-01-03 06:30:38', NULL),
+(14, 'Sói già phố Wall - Phần 1', NULL, 19, 150000, 1, 3, 1, 2, 2, '2023-10-18 23:57:10', '2024-01-10 10:35:02', '1970-01-01'),
+(13, 'Làm bạn với bầu trời', NULL, 53, 100000, 2, 2, 1, 2, 2, '2023-10-18 23:52:59', '2024-01-06 06:53:01', '1970-01-01'),
+(12, 'Tôi là BêTô', NULL, 10, 100000, 2, 2, 1, 2, 2, '2023-10-18 23:52:28', '2024-01-06 06:53:01', NULL),
 (11, 'Cảm ơn người lớn', NULL, 10, 100000, 2, 3, 1, 2, 2, '2023-10-18 23:51:49', '2023-12-19 01:37:10', '1970-01-01'),
-(17, 'Fear', NULL, 10, 150000, 6, 2, 1, 2, 2, '2023-10-19 03:40:28', '2023-10-19 03:40:28', NULL),
-(16, 'Sói già phố Wall - Phần 3', NULL, 11, 150000, 1, 3, 1, 2, 2, '2023-10-18 23:57:31', '2023-12-19 01:38:25', '1970-01-01'),
-(18, 'Giận', NULL, 10, 150000, 6, 2, 1, 2, 2, '2023-10-19 03:40:46', '2023-10-19 03:40:46', NULL),
+(17, 'Fear', NULL, 10, 150000, 6, 2, 1, 2, 2, '2023-10-19 03:40:28', '2024-01-06 06:53:01', NULL),
+(16, 'Sói già phố Wall - Phần 3', NULL, 11, 150000, 1, 3, 1, 2, 2, '2023-10-18 23:57:31', '2024-01-06 06:53:01', '1970-01-01'),
+(18, 'Giận', NULL, 10, 150000, 6, 2, 1, 2, 2, '2023-10-19 03:40:46', '2024-01-01 21:24:20', NULL),
 (48, 'AI34', 'A', 10, 100000, 2, 2, 1, 2, 2, '2023-11-03 01:55:43', '2023-11-03 01:55:43', NULL),
 (49, 'AI35', 'A', 12, 100000, 2, 2, 1, 2, 2, '2023-11-03 01:56:35', '2023-12-13 20:05:40', '1970-01-01'),
-(46, 'A2', 'A', 10, 100000, 2, 2, 1, 2, 2, '2023-11-03 01:22:52', '2023-11-03 01:41:17', NULL),
+(46, 'A2', 'A', 0, 100000, 2, 2, 1, 2, 2, '2023-11-03 01:22:52', '2024-01-19 09:30:09', NULL),
 (47, 'AI33', 'A', 10, 100000, 2, 2, 1, 2, 2, '2023-11-03 01:38:42', '2023-11-03 01:38:42', NULL),
-(51, 'AN999', NULL, 100, 100000, 1, 2, 3, 3, 2, '2023-12-06 07:20:43', '2023-12-10 03:09:47', '2022-02-02');
+(51, 'AN999', NULL, 100, 100000, 1, 2, 3, 3, 2, '2023-12-06 07:20:43', '2023-12-10 03:09:47', '2022-02-02'),
+(56, 'sach123', 'aaaa', 99, 100000, 1, 4, 4, 3, 2, '2024-01-07 06:50:59', '2024-01-07 19:03:56', '2000-12-20'),
+(57, 'sach tieng viet', NULL, 100000, 100000, 6, 4, 4, 3, 5, '2024-01-07 07:12:00', '2024-01-07 07:12:00', '2002-12-21'),
+(58, 'sach1', NULL, 8, 100000, 2, 3, 4, 2, 5, '2024-01-07 18:55:46', '2024-01-07 19:03:56', '2002-05-22'),
+(59, 'sach2', NULL, 100, 10000, 1, 3, 4, 2, 4, '2024-01-07 19:08:07', '2024-01-07 19:42:54', '2220-02-22'),
+(60, 'sach3', 'null', 100, 100000, 1, 2, 4, 3, 4, '2024-01-07 19:11:54', '2024-01-07 19:11:54', '1999-02-20');
 
 -- --------------------------------------------------------
 
@@ -177,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `categories`
@@ -222,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `image_book_id_foreign` (`book_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `images`
@@ -255,7 +269,15 @@ INSERT INTO `images` (`id`, `image_path`, `book_id`, `created_at`, `updated_at`)
 (31, '2133949344.jpg', 51, '2023-12-10 03:02:40', '2023-12-10 03:02:40'),
 (37, '1754701761.jpg', 53, '2023-12-19 02:42:32', '2023-12-19 02:42:32'),
 (38, '1480153659.jpg', 54, '2023-12-19 02:46:27', '2023-12-19 02:46:27'),
-(39, '1733168070.jpg', 55, '2023-12-19 02:53:53', '2023-12-19 02:53:53');
+(39, '1733168070.jpg', 55, '2023-12-19 02:53:53', '2023-12-19 02:53:53'),
+(40, '1007344267.jpg', 56, '2024-01-07 06:51:00', '2024-01-07 06:51:00'),
+(41, '718761973.jpg', 56, '2024-01-07 06:51:00', '2024-01-07 06:51:00'),
+(42, '822093437.png', 57, '2024-01-07 07:12:00', '2024-01-07 07:12:00'),
+(43, '1752680163.jpg', 58, '2024-01-07 18:55:46', '2024-01-07 18:55:46'),
+(44, '1225917761.png', 58, '2024-01-07 18:55:46', '2024-01-07 18:55:46'),
+(45, '1089283957.jpg', 59, '2024-01-07 19:08:07', '2024-01-07 19:08:07'),
+(46, '974482232.png', 59, '2024-01-07 19:08:07', '2024-01-07 19:08:07'),
+(47, '1647517446.png', 60, '2024-01-07 19:11:54', '2024-01-07 19:11:54');
 
 -- --------------------------------------------------------
 
@@ -294,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `migrations`
@@ -332,7 +354,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2023_12_06_072114_add_date_column_to_books_table', 20),
 (36, '2023_12_11_132911_add_status_column_to_orders_table', 21),
 (37, '2023_12_11_141652_add_has_receive_column_to_orders_table', 22),
-(38, '2023_12_18_141743_add_is_locked_to_users_table', 23);
+(38, '2023_12_18_141743_add_is_locked_to_users_table', 23),
+(39, '2024_01_03_092021_add_receiver_column_to_orders_table', 24),
+(40, '2024_01_10_171906_change_column_type_in_table_order', 25);
 
 -- --------------------------------------------------------
 
@@ -355,18 +379,60 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
 
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(2, 'App\\Models\\User', 1),
 (3, 'App\\Models\\User', 1),
 (4, 'App\\Models\\User', 1),
 (5, 'App\\Models\\User', 1),
+(7, 'App\\Models\\User', 1),
+(8, 'App\\Models\\User', 1),
+(9, 'App\\Models\\User', 1),
+(11, 'App\\Models\\User', 1),
+(12, 'App\\Models\\User', 1),
+(13, 'App\\Models\\User', 1),
+(14, 'App\\Models\\User', 1),
+(15, 'App\\Models\\User', 1),
+(16, 'App\\Models\\User', 1),
+(17, 'App\\Models\\User', 1),
+(18, 'App\\Models\\User', 1),
+(19, 'App\\Models\\User', 1),
+(21, 'App\\Models\\User', 1),
+(22, 'App\\Models\\User', 1),
+(23, 'App\\Models\\User', 1),
+(24, 'App\\Models\\User', 1),
+(25, 'App\\Models\\User', 1),
+(26, 'App\\Models\\User', 1),
+(27, 'App\\Models\\User', 1),
+(28, 'App\\Models\\User', 1),
 (1, 'App\\Models\\User', 12),
 (3, 'App\\Models\\User', 12),
+(4, 'App\\Models\\User', 12),
 (5, 'App\\Models\\User', 12),
+(7, 'App\\Models\\User', 12),
+(8, 'App\\Models\\User', 12),
+(9, 'App\\Models\\User', 12),
+(11, 'App\\Models\\User', 12),
+(12, 'App\\Models\\User', 12),
+(13, 'App\\Models\\User', 12),
+(14, 'App\\Models\\User', 12),
+(15, 'App\\Models\\User', 12),
+(16, 'App\\Models\\User', 12),
+(17, 'App\\Models\\User', 12),
+(18, 'App\\Models\\User', 12),
+(19, 'App\\Models\\User', 12),
+(21, 'App\\Models\\User', 12),
+(22, 'App\\Models\\User', 12),
+(23, 'App\\Models\\User', 12),
+(24, 'App\\Models\\User', 12),
+(25, 'App\\Models\\User', 12),
+(26, 'App\\Models\\User', 12),
+(27, 'App\\Models\\User', 12),
+(28, 'App\\Models\\User', 12),
 (1, 'App\\Models\\User', 15),
-(2, 'App\\Models\\User', 15),
 (3, 'App\\Models\\User', 15),
 (4, 'App\\Models\\User', 15),
-(5, 'App\\Models\\User', 15);
+(5, 'App\\Models\\User', 15),
+(7, 'App\\Models\\User', 15),
+(8, 'App\\Models\\User', 15),
+(9, 'App\\Models\\User', 15);
 
 -- --------------------------------------------------------
 
@@ -396,7 +462,9 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (3, 'App\\Models\\User', 6),
 (3, 'App\\Models\\User', 11),
 (4, 'App\\Models\\User', 12),
-(4, 'App\\Models\\User', 15);
+(4, 'App\\Models\\User', 15),
+(3, 'App\\Models\\User', 16),
+(3, 'App\\Models\\User', 17);
 
 -- --------------------------------------------------------
 
@@ -408,7 +476,7 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` date DEFAULT NULL,
-  `total` double(8,2) NOT NULL,
+  `total` int NOT NULL,
   `order_code` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payment` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_id` bigint UNSIGNED NOT NULL,
@@ -416,24 +484,49 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'chưa xác nhận',
   `has_received` tinyint(1) NOT NULL DEFAULT '0',
+  `receiver` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_receiver` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address_receiver` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_receiver` varchar(125) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `date`, `total`, `order_code`, `payment`, `user_id`, `created_at`, `updated_at`, `status`, `has_received`) VALUES
-(10, '2023-12-01', 585000.00, 'e5mYkw98FK', 'VN PAY', 3, '2023-12-01 01:55:31', '2023-12-12 01:34:34', 'chưa xác nhận', 1),
-(11, '2023-12-01', 585000.00, 'oL8r5BNpLU', 'VN PAY', 3, '2023-12-01 02:08:11', '2023-12-12 00:37:24', 'đã nhận', 1),
-(12, '2023-12-01', 585000.00, 'Zhu0ZHBe8y', 'VN PAY', 3, '2023-12-01 02:12:28', '2023-12-12 00:37:54', 'hủy', 0),
-(13, '2023-12-01', 585000.00, 'aXp2FdYlW3', 'VN PAY', 3, '2023-12-01 02:32:03', '2023-12-12 02:53:07', 'đã nhận', 1),
-(14, '2023-12-07', 135000.00, 'DHMeo2m0aX', 'VN PAY', 3, '2023-12-06 20:21:56', '2023-12-12 02:54:35', 'hủy', 0),
-(15, '2023-12-07', 225000.00, 'r4ioUjXb5A', 'VN PAY', 3, '2023-12-06 21:04:39', '2023-12-06 21:04:39', 'chưa xác nhận', 0),
-(16, '2023-12-12', 90000.00, 'jzbVOfcshn', 'Thanh toán khi nhận hàng', 3, '2023-12-12 02:58:55', '2023-12-12 02:58:55', 'chưa xác nhận', 0),
-(25, '2023-12-12', 135000.00, 'hgvmneKkel', 'VN PAY', 3, '2023-12-12 04:14:12', '2023-12-12 04:14:12', 'chưa xác nhận', 0),
-(26, '2023-12-12', 810000.00, 'HPmFr3qIKS', 'Thanh toán khi nhận hàng', 3, '2023-12-12 07:13:28', '2023-12-12 07:24:00', 'chưa xác nhận', 0),
-(27, '2023-12-12', 810000.00, 'yxwiUWSniq', 'Thanh toán khi nhận hàng', 3, '2023-12-12 07:16:14', '2023-12-12 07:16:14', 'chưa xác nhận', 0);
+INSERT INTO `orders` (`id`, `date`, `total`, `order_code`, `payment`, `user_id`, `created_at`, `updated_at`, `status`, `has_received`, `receiver`, `email_receiver`, `address_receiver`, `phone_receiver`) VALUES
+(10, '2023-12-01', 585000, 'e5mYkw98FK', 'VN PAY', 3, '2023-12-01 01:55:31', '2023-12-12 01:34:34', 'chưa xác nhận', 1, NULL, NULL, NULL, NULL),
+(11, '2023-12-01', 585000, 'oL8r5BNpLU', 'VN PAY', 3, '2023-12-01 02:08:11', '2023-12-12 00:37:24', 'đã nhận', 1, NULL, NULL, NULL, NULL),
+(12, '2023-12-01', 585000, 'Zhu0ZHBe8y', 'VN PAY', 3, '2023-12-01 02:12:28', '2023-12-12 00:37:54', 'hủy', 0, NULL, NULL, NULL, NULL),
+(13, '2023-12-01', 585000, 'aXp2FdYlW3', 'VN PAY', 3, '2023-12-01 02:32:03', '2023-12-12 02:53:07', 'đã nhận', 1, NULL, NULL, NULL, NULL),
+(14, '2023-12-07', 135000, 'DHMeo2m0aX', 'VN PAY', 3, '2023-12-06 20:21:56', '2023-12-12 02:54:35', 'hủy', 0, NULL, NULL, NULL, NULL),
+(15, '2023-12-07', 225000, 'r4ioUjXb5A', 'VN PAY', 3, '2023-12-06 21:04:39', '2023-12-06 21:04:39', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(16, '2023-12-12', 90000, 'jzbVOfcshn', 'Thanh toán khi nhận hàng', 3, '2023-12-12 02:58:55', '2023-12-12 02:58:55', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(25, '2023-12-12', 135000, 'hgvmneKkel', 'VN PAY', 3, '2023-12-12 04:14:12', '2023-12-12 04:14:12', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(26, '2023-12-12', 810000, 'HPmFr3qIKS', 'Thanh toán khi nhận hàng', 3, '2023-12-12 07:13:28', '2023-12-12 07:24:00', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(27, '2023-12-12', 810000, 'yxwiUWSniq', 'Thanh toán khi nhận hàng', 3, '2023-12-12 07:16:14', '2023-12-12 07:16:14', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(28, '2024-01-01', 135000, 'uu90gsdWHu', 'Thanh toán khi nhận hàng', 3, '2024-01-01 06:47:49', '2024-01-01 06:47:49', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(29, '2024-01-02', 315000, 'FKQufs6h4N', 'Thanh toán khi nhận hàng', 3, '2024-01-01 21:11:43', '2024-01-01 21:11:43', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(30, '2024-01-02', 225000, 'RarGP11rhR', 'Thanh toán khi nhận hàng', 3, '2024-01-01 21:15:52', '2024-01-01 21:24:20', 'chưa xác nhận', 0, NULL, NULL, NULL, NULL),
+(31, '2024-01-03', 360000, 't73klQpMmT', 'Thanh toán khi nhận hàng', 11, '2024-01-03 02:48:22', '2024-01-03 06:30:29', 'bùng hàng', 0, 'a', 'user2@gmail.com', 'a', '0979689327'),
+(32, '2024-01-03', 90000, 'v9V2HDQVlA', 'VN PAY', 11, '2024-01-03 03:28:58', '2024-01-03 06:31:46', 'bùng hàng', 0, 'anc', 'user@gmail.com', 'q3b', '0979689327'),
+(33, '2024-01-03', 90000, 'vCoUUxgWeQ', 'VN PAY', 11, '2024-01-03 03:30:59', '2024-01-03 06:35:04', 'bùng hàng', 0, 'user2', 'user2@gmail.com', 'abc', '0979689327'),
+(34, '2024-01-03', 90000, 'FnQZo4aHAe', 'VN PAY', 11, '2024-01-03 03:32:42', '2024-01-03 03:32:42', 'chưa xác nhận', 0, 'abc', 'user@gmail.com', 'q33', '0979689327'),
+(35, '2024-01-03', 90000, 'q162piHPeZ', 'VN PAY', 11, '2024-01-03 03:34:58', '2024-01-03 07:14:25', 'đã nhận', 1, 'user2', 'user@gmail.com', 'aasd', '0979689327'),
+(36, '2024-01-03', 90000, '2bpwrwC7DY', 'VN PAY', 11, '2024-01-03 03:39:37', '2024-01-03 03:39:37', 'chưa xác nhận', 0, 'user2', 'user@gmail.com', 'abc', '0979689327'),
+(37, '2024-01-03', 90000, 'W58hxYmMuE', 'VN PAY', 11, '2024-01-03 03:41:45', '2024-01-03 03:41:45', 'chưa xác nhận', 0, 'user2', 'user@gmail.com', 'abc', '0979689327'),
+(38, '2024-01-03', 180000, 'ddl1WWXdZv', 'VN PAY', 11, '2024-01-03 03:43:27', '2024-01-03 06:15:00', 'bùng hàng', 0, 'abc', 'user2@gmail.com', 'aasd', '0979689327'),
+(39, '2024-01-06', 675000, 'U2k9d2yFBO', 'VN PAY', 17, '2024-01-06 06:49:56', '2024-01-06 06:53:01', 'bùng hàng', 0, 'user2', 'user2@gmail.com', 'aasd', '0979689327'),
+(40, '2024-01-08', 280000, 'ORY1qTWI8o', 'VN PAY', 11, '2024-01-07 18:58:30', '2024-01-07 19:05:03', 'đã nhận', 1, 'abc', 'user2@gmail.com', 'aaa', '0979689327'),
+(41, '2024-01-08', 585000, 'rezS6VMjIP', 'Thanh toán khi nhận hàng', 11, '2024-01-07 19:49:00', '2024-01-07 19:49:34', 'hủy', 0, 'user2', 'user@gmail.com', 'aasd', '0979689327'),
+(42, '2024-01-08', 405000, 'QkpVByT3cd', 'Thanh toán khi nhận hàng', 11, '2024-01-07 20:02:17', '2024-01-07 20:03:16', 'chưa xác nhận', 0, 'abc', 'user2@gmail.com', 'aaa', '0979689327'),
+(43, '2024-01-08', 135000, 'ZT3u8W4xh9', 'Thanh toán khi nhận hàng', 11, '2024-01-07 20:10:00', '2024-01-07 20:10:08', 'hủy', 0, 'user2', 'user2@gmail.com', 'aasd', '0979689327'),
+(44, '2024-01-08', 945000, 'qTPcRSMDBu', 'Thanh toán khi nhận hàng', 11, '2024-01-07 20:13:40', '2024-01-07 20:13:45', 'hủy', 0, 'user2', 'user2@gmail.com', 'aasd', '0979689327'),
+(45, '2024-01-10', 1350000, 'AdGSaWqRls', 'Thanh toán khi nhận hàng', 11, '2024-01-10 10:32:44', '2024-01-10 10:32:50', 'hủy', 0, 'user2', 'user@gmail.com', 'aasd', '0979689327'),
+(46, '2024-01-10', 4725000, 'F2egJDKC1k', 'Thanh toán khi nhận hàng', 11, '2024-01-10 10:33:20', '2024-01-10 10:33:56', 'hủy', 0, 'user2', 'user2@gmail.com', 'aasd', '0979689327'),
+(47, '2024-01-10', 2160000, 'UeyDzTkHEZ', 'Thanh toán khi nhận hàng', 11, '2024-01-10 10:34:15', '2024-01-10 10:36:33', 'đã nhận', 1, 'user2', 'user2@gmail.com', 'aasd', '0979689327'),
+(48, '2024-01-19', 900000, '7XVKd1qCbb', 'Thanh toán khi nhận hàng', 11, '2024-01-19 09:28:17', '2024-01-19 09:30:09', 'xác nhận', 0, 'user2', 'user2@gmail.com', '4466', '0979689327');
 
 -- --------------------------------------------------------
 
@@ -451,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `order_details`
@@ -476,7 +569,38 @@ INSERT INTO `order_details` (`id`, `order_id`, `book_id`, `quantity`, `price`, `
 (24, 16, 13, 1, 90000.00, '2023-12-12 02:58:55', '2023-12-12 02:58:55'),
 (34, 25, 16, 1, 135000.00, '2023-12-12 04:14:12', '2023-12-12 04:14:12'),
 (35, 26, 14, 6, 135000.00, '2023-12-12 07:13:28', '2023-12-12 07:13:28'),
-(36, 27, 14, 6, 135000.00, '2023-12-12 07:16:14', '2023-12-12 07:16:14');
+(36, 27, 14, 6, 135000.00, '2023-12-12 07:16:14', '2023-12-12 07:16:14'),
+(37, 28, 14, 1, 135000.00, '2024-01-01 06:47:49', '2024-01-01 06:47:49'),
+(38, 29, 14, 1, 135000.00, '2024-01-01 21:11:43', '2024-01-01 21:11:43'),
+(39, 29, 13, 2, 90000.00, '2024-01-01 21:11:43', '2024-01-01 21:11:43'),
+(40, 30, 12, 1, 90000.00, '2024-01-01 21:15:52', '2024-01-01 21:15:52'),
+(41, 30, 18, 1, 135000.00, '2024-01-01 21:15:52', '2024-01-01 21:15:52'),
+(42, 31, 15, 1, 135000.00, '2024-01-03 02:48:22', '2024-01-03 02:48:22'),
+(43, 31, 13, 1, 90000.00, '2024-01-03 02:48:22', '2024-01-03 02:48:22'),
+(44, 31, 14, 1, 135000.00, '2024-01-03 02:48:22', '2024-01-03 02:48:22'),
+(45, 32, 13, 1, 90000.00, '2024-01-03 03:28:58', '2024-01-03 03:28:58'),
+(46, 33, 13, 1, 90000.00, '2024-01-03 03:30:59', '2024-01-03 03:30:59'),
+(47, 34, 13, 1, 90000.00, '2024-01-03 03:32:43', '2024-01-03 03:32:43'),
+(48, 35, 13, 1, 90000.00, '2024-01-03 03:34:58', '2024-01-03 03:34:58'),
+(49, 36, 13, 1, 90000.00, '2024-01-03 03:39:37', '2024-01-03 03:39:37'),
+(50, 37, 13, 1, 90000.00, '2024-01-03 03:41:45', '2024-01-03 03:41:45'),
+(51, 38, 13, 2, 90000.00, '2024-01-03 03:43:27', '2024-01-03 03:43:27'),
+(52, 39, 16, 1, 135000.00, '2024-01-06 06:49:56', '2024-01-06 06:49:56'),
+(53, 39, 14, 1, 135000.00, '2024-01-06 06:49:56', '2024-01-06 06:49:56'),
+(54, 39, 13, 2, 90000.00, '2024-01-06 06:49:56', '2024-01-06 06:49:56'),
+(55, 39, 12, 1, 90000.00, '2024-01-06 06:49:56', '2024-01-06 06:49:56'),
+(56, 39, 17, 1, 135000.00, '2024-01-06 06:49:56', '2024-01-06 06:49:56'),
+(57, 40, 58, 2, 95000.00, '2024-01-07 18:58:30', '2024-01-07 18:58:30'),
+(58, 40, 56, 1, 90000.00, '2024-01-07 18:58:30', '2024-01-07 18:58:30'),
+(59, 41, 48, 2, 90000.00, '2024-01-07 19:49:00', '2024-01-07 19:49:00'),
+(60, 41, 14, 3, 135000.00, '2024-01-07 19:49:00', '2024-01-07 19:49:00'),
+(61, 42, 14, 3, 135000.00, '2024-01-07 20:02:17', '2024-01-07 20:02:17'),
+(62, 43, 17, 1, 135000.00, '2024-01-07 20:10:00', '2024-01-07 20:10:00'),
+(63, 44, 17, 7, 135000.00, '2024-01-07 20:13:40', '2024-01-07 20:13:40'),
+(64, 45, 17, 10, 135000.00, '2024-01-10 10:32:44', '2024-01-10 10:32:44'),
+(65, 46, 14, 35, 135000.00, '2024-01-10 10:33:20', '2024-01-10 10:33:20'),
+(66, 47, 14, 16, 135000.00, '2024-01-10 10:34:15', '2024-01-10 10:34:15'),
+(67, 48, 46, 10, 90000.00, '2024-01-19 09:28:17', '2024-01-19 09:28:17');
 
 -- --------------------------------------------------------
 
@@ -507,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `permissions`
@@ -515,10 +639,29 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'category.delete', 'web', '2023-11-09 06:58:31', '2023-11-09 06:58:31'),
-(2, 'category.index', 'web', '2023-11-09 06:58:37', '2023-11-09 06:58:37'),
 (3, 'category.show', 'web', '2023-11-09 06:58:42', '2023-11-09 06:58:42'),
 (4, 'category.update', 'web', '2023-11-09 06:58:47', '2023-11-09 06:58:47'),
-(5, 'category.store', 'web', '2023-11-09 07:01:48', '2023-11-09 07:01:48');
+(5, 'category.store', 'web', '2023-11-09 07:01:48', '2023-11-09 07:01:48'),
+(7, 'author.store', 'web', '2024-01-01 02:45:59', '2024-01-01 02:45:59'),
+(8, 'author.delete', 'web', '2024-01-01 02:46:06', '2024-01-01 02:46:06'),
+(9, 'author.update', 'web', '2024-01-01 02:46:13', '2024-01-01 02:46:13'),
+(11, 'language.store', 'web', '2024-01-01 02:47:56', '2024-01-01 02:47:56'),
+(12, 'language.delete', 'web', '2024-01-01 02:48:10', '2024-01-01 02:48:10'),
+(13, 'language.update', 'web', '2024-01-01 02:48:16', '2024-01-01 02:48:16'),
+(14, 'publisher.store', 'web', '2024-01-01 02:48:32', '2024-01-01 02:48:32'),
+(15, 'publisher.update', 'web', '2024-01-01 02:48:39', '2024-01-01 02:48:39'),
+(16, 'publisher.delete', 'web', '2024-01-01 02:48:46', '2024-01-01 02:48:46'),
+(17, 'booklayout.store', 'web', '2024-01-01 02:49:07', '2024-01-01 02:49:07'),
+(18, 'booklayout.update', 'web', '2024-01-01 02:49:14', '2024-01-01 02:49:14'),
+(19, 'booklayout.delete', 'web', '2024-01-01 02:49:22', '2024-01-01 02:49:22'),
+(21, 'promotion.store', 'web', '2024-01-01 02:51:17', '2024-01-01 02:51:17'),
+(22, 'promotion.update', 'web', '2024-01-01 02:52:28', '2024-01-01 02:52:28'),
+(23, 'promotion.delete', 'web', '2024-01-01 02:52:35', '2024-01-01 02:52:35'),
+(24, 'book.store', 'web', '2024-01-01 02:53:03', '2024-01-01 02:53:03'),
+(25, 'book.update', 'web', '2024-01-01 02:53:09', '2024-01-01 02:53:09'),
+(26, 'book.delete', 'web', '2024-01-01 02:53:16', '2024-01-01 02:53:16'),
+(27, 'user.lock', 'web', '2024-01-01 02:54:04', '2024-01-01 02:54:04'),
+(28, 'user.unlock', 'web', '2024-01-01 02:54:10', '2024-01-01 02:54:10');
 
 -- --------------------------------------------------------
 
@@ -540,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=273 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `personal_access_tokens`
@@ -666,6 +809,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (183, 'App\\Models\\User', 9, 'Token', '896aee88db92a3005b4c7d0757cade74164edae5e21b9942361e157191bcad79', '[\"*\"]', NULL, '2023-12-12 07:43:32', '2023-12-12 07:43:32'),
 (186, 'App\\Models\\User', 10, 'AppName', '0f1cee23425a0e87b7c1a4abc196eb3eeb9a27f3f87049d1f0d512ce042e4e93', '[\"*\"]', NULL, '2023-12-12 08:28:59', '2023-12-12 08:28:59'),
 (188, 'App\\Models\\User', 11, 'AppName', '9861ddaa039e6fcea96cd029c60e450ceb948c6b3d77059b700822d664fd5707', '[\"*\"]', NULL, '2023-12-12 08:31:38', '2023-12-12 08:31:38'),
+(320, 'App\\Models\\User', 11, 'AppName', 'fca70c88f336b4aeb3583c56686838e46fd5b409051ff8dad1d42aaaeb34cef6', '[\"*\"]', NULL, '2024-01-03 02:42:24', '2024-01-03 02:42:24'),
 (191, 'App\\Models\\User', 12, 'Token', 'ead1c048852b19f3a50d3a745691faf7b8aa19be10148c3e6cc0b76f4af30749', '[\"*\"]', NULL, '2023-12-13 01:24:33', '2023-12-13 01:24:33'),
 (192, 'App\\Models\\User', 12, 'Token', '496d4fe14601e5d683852ecb234243882dc80a036cea321770dfbe3279501c19', '[\"*\"]', NULL, '2023-12-13 01:24:41', '2023-12-13 01:24:41'),
 (193, 'App\\Models\\User', 12, 'Token', 'ca1b5196b0056bd4516ce70416a819a699e1770713da78e65faca04d187c87d5', '[\"*\"]', NULL, '2023-12-13 01:24:42', '2023-12-13 01:24:42'),
@@ -740,7 +884,46 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (262, 'App\\Models\\User', 15, 'Token', 'b1af45f4b15da5b90462fdea1e0eccac55513e9b10b866393993237dc3280a4c', '[\"*\"]', NULL, '2023-12-19 07:53:29', '2023-12-19 07:53:29'),
 (263, 'App\\Models\\User', 15, 'Token', 'b69463789f97571f66d6cccbf33c454674cab3fd4b44857098dc4342d7018c0e', '[\"*\"]', NULL, '2023-12-19 07:53:33', '2023-12-19 07:53:33'),
 (264, 'App\\Models\\User', 15, 'Token', '97baf1ec4aea55245920b825b868ec3beddb5e35a0ea1b99b8a6e236c9a71b16', '[\"*\"]', NULL, '2023-12-19 07:53:33', '2023-12-19 07:53:33'),
-(272, 'App\\Models\\User', 4, 'Api token ofuser3', 'fa8207cbe892758a9b982951ae44e36d9b78244ccafd0a7520ca19f656fd2cf9', '[\"*\"]', NULL, '2023-12-19 08:00:46', '2023-12-19 08:00:46');
+(272, 'App\\Models\\User', 4, 'Api token ofuser3', 'fa8207cbe892758a9b982951ae44e36d9b78244ccafd0a7520ca19f656fd2cf9', '[\"*\"]', NULL, '2023-12-19 08:00:46', '2023-12-19 08:00:46'),
+(278, 'App\\Models\\User', 15, 'Token', 'f04912331a3c65ceca9082cc7c3ea79c89762a2d3fe75f6f5fd0a26633da31ce', '[\"*\"]', NULL, '2024-01-01 00:39:08', '2024-01-01 00:39:08'),
+(279, 'App\\Models\\User', 15, 'Token', '7b314959d96b5af0f2b8da99e8360202d3eed63eeb054dd28c629b2b9dffb174', '[\"*\"]', NULL, '2024-01-01 00:39:08', '2024-01-01 00:39:08'),
+(280, 'App\\Models\\User', 12, 'Token', 'dcd3cec8b7d0d781add6f586bea58d35bb14ca200c49652afbd7ec47f3a84862', '[\"*\"]', NULL, '2024-01-01 00:39:41', '2024-01-01 00:39:41'),
+(281, 'App\\Models\\User', 12, 'Token', '5829eba0fcf889c2e83ee09d049b95e2790ed5d329dab43ce35ba1068520b2e5', '[\"*\"]', NULL, '2024-01-01 00:39:41', '2024-01-01 00:39:41'),
+(282, 'App\\Models\\User', 15, 'Token', 'f76d0f7f7aefc1b63794bcaed95ce70b6d6cfa7ee4cc21728468e057d7585962', '[\"*\"]', NULL, '2024-01-01 00:39:46', '2024-01-01 00:39:46'),
+(283, 'App\\Models\\User', 15, 'Token', '00c52d829e4623f019222321533e3feb9c790c3b279ce3c6676e3265d9f868a8', '[\"*\"]', NULL, '2024-01-01 00:39:46', '2024-01-01 00:39:46'),
+(287, 'App\\Models\\User', 1, 'Token', 'c1b8966b550cfe83ed6c8287278cfaaf3242d9d047d6be8c3bfda51874e2fca9', '[\"*\"]', NULL, '2024-01-01 00:48:52', '2024-01-01 00:48:52'),
+(288, 'App\\Models\\User', 1, 'Token', 'a89e7e4c1a505e436319275dee2beaf5936896f92d3efd5eba19bc8438a77afb', '[\"*\"]', NULL, '2024-01-01 00:48:53', '2024-01-01 00:48:53'),
+(289, 'App\\Models\\User', 1, 'Token', 'abc450dd77c4f3b8cc8aea64c363f99f3b418ef97445d3777d72c0676f7195dc', '[\"*\"]', NULL, '2024-01-01 00:49:16', '2024-01-01 00:49:16'),
+(290, 'App\\Models\\User', 1, 'Token', '2c3a39d0d80a2c889330e729d984f9ccbbedeab1e7839f143623886e3d34635f', '[\"*\"]', NULL, '2024-01-01 00:49:17', '2024-01-01 00:49:17'),
+(291, 'App\\Models\\User', 1, 'Token', '65a81d80e388e7636e83e88af0438da5bd6ca4c49aec091ca1299bd54d0a0e3e', '[\"*\"]', NULL, '2024-01-01 00:51:20', '2024-01-01 00:51:20'),
+(292, 'App\\Models\\User', 1, 'Token', 'ffc8cfe8955b21796dcdfd7b091702eb4edb97bce721a5957ab018da37ba9b43', '[\"*\"]', NULL, '2024-01-01 00:51:20', '2024-01-01 00:51:20'),
+(293, 'App\\Models\\User', 1, 'Token', '05e6efff12bf8009e2c2315365c47e2bf2ed7766116f305032335bc545ee26c9', '[\"*\"]', NULL, '2024-01-01 01:03:30', '2024-01-01 01:03:30'),
+(294, 'App\\Models\\User', 1, 'Token', '979f647428b73d5f70768d15c7e4551b892a1cd0eb2a1ec4bcd0ca1d0206445a', '[\"*\"]', NULL, '2024-01-01 01:03:31', '2024-01-01 01:03:31'),
+(295, 'App\\Models\\User', 1, 'Token', 'bc9c1f663c5c9cd28bc243097fae1fd31c49a615b85265062a5c8a6474b68ceb', '[\"*\"]', NULL, '2024-01-01 01:07:14', '2024-01-01 01:07:14'),
+(296, 'App\\Models\\User', 1, 'Token', '4c952c5b237231dee51c9727bdb1590f09dd65445b9d9d6281b1293e70d6dba5', '[\"*\"]', NULL, '2024-01-01 01:07:17', '2024-01-01 01:07:17'),
+(298, 'App\\Models\\User', 1, 'Api token ofadmin', '535cebc2fb9fcc70bb3dc1cc62600f87a18ebd31e30a79500d49500d1aa5e338', '[\"*\"]', NULL, '2024-01-01 02:02:00', '2024-01-01 02:02:00'),
+(299, 'App\\Models\\User', 1, 'Api token ofadmin', '02c3d65cd437b4af15ad8b6a3923bc8dbde6f0fdcc6a549d29c96024e7fef5f8', '[\"*\"]', '2024-01-01 02:25:55', '2024-01-01 02:08:31', '2024-01-01 02:25:55'),
+(302, 'App\\Models\\User', 1, 'Token', '838eea03539c7dfce24b9c77c19dc347d7a48119a35394b8c599df531651bf29', '[\"*\"]', NULL, '2024-01-01 03:01:29', '2024-01-01 03:01:29'),
+(303, 'App\\Models\\User', 1, 'Token', '4dcf96146399d16cefada5292e832fc8bf3959772c672689daa222e329c4c1c9', '[\"*\"]', NULL, '2024-01-01 03:01:29', '2024-01-01 03:01:29'),
+(306, 'App\\Models\\User', 12, 'Token', '65b85c19c03eceeb57a37e070c3aada4fd9eac2d3cea5d121f9cb757d5ce03e5', '[\"*\"]', NULL, '2024-01-01 19:29:35', '2024-01-01 19:29:35'),
+(307, 'App\\Models\\User', 12, 'Token', '1bcfe455832bd9203f8a704d3602731eecdf7010b986d4fdeb16798068807a3f', '[\"*\"]', NULL, '2024-01-01 19:29:35', '2024-01-01 19:29:35'),
+(308, 'App\\Models\\User', 15, 'Token', 'db86e2507b702b9cf099a3e66b058a454ffe6fdbc5931f05482be3edc08f18bf', '[\"*\"]', NULL, '2024-01-01 19:30:02', '2024-01-01 19:30:02'),
+(309, 'App\\Models\\User', 15, 'Token', '3e1a9d4b95429de3bee88453b152f1937f5dfafdee6c24deaa8c149a75a10a50', '[\"*\"]', NULL, '2024-01-01 19:30:02', '2024-01-01 19:30:02'),
+(312, 'App\\Models\\User', 1, 'Token', '98ae4ce8d31f832ff48bf2365a10b3272745e7f79f6b8364d959174458a26ce1', '[\"*\"]', NULL, '2024-01-01 21:28:25', '2024-01-01 21:28:25'),
+(313, 'App\\Models\\User', 1, 'Token', 'ecbe5a90fa7f6b5e001062e0b35430253516c2c2f029847256ccec17a283d55d', '[\"*\"]', NULL, '2024-01-01 21:28:25', '2024-01-01 21:28:25'),
+(314, 'App\\Models\\User', 1, 'Token', '21bd019387bfab0e3ce28313d48f65169ef2bc98d0a5d320c901fa081145d859', '[\"*\"]', NULL, '2024-01-01 21:28:41', '2024-01-01 21:28:41'),
+(315, 'App\\Models\\User', 1, 'Token', 'cc581ff0b92c15be28fae389fb2d4af519b08cddfa415a202b2c87789471a77b', '[\"*\"]', NULL, '2024-01-01 21:28:42', '2024-01-01 21:28:42'),
+(353, 'App\\Models\\User', 1, 'Api token ofadmin', '110636f83d6661d7c70c9857e9b9befb2bf2bc5c7ab3d5ba73ee80c7531d3442', '[\"*\"]', NULL, '2024-01-07 19:05:23', '2024-01-07 19:05:23'),
+(323, 'App\\Models\\User', 11, 'AppName', 'b299262abe7e34f7ac17dfe03267b58be5641eb6f81b5460a3c1e00f1d42888b', '[\"*\"]', NULL, '2024-01-03 07:14:09', '2024-01-03 07:14:09'),
+(326, 'App\\Models\\User', 16, 'AppName', 'd3393414f25374107f5de87224ab16915abbfa4eb37ae26db4a8b936ac492077', '[\"*\"]', NULL, '2024-01-06 05:03:58', '2024-01-06 05:03:58'),
+(328, 'App\\Models\\User', 16, 'AppName', '59cc07c389ebce67b1ef144d0596ff625cb114f774e77986ed9ceb9f66de04af', '[\"*\"]', NULL, '2024-01-06 05:08:30', '2024-01-06 05:08:30'),
+(331, 'App\\Models\\User', 17, 'Api token ofabc', '99ce79930636da57678e0fd0d03287769d11012545bbb194317dff49868cc59e', '[\"*\"]', NULL, '2024-01-06 06:48:52', '2024-01-06 06:48:52'),
+(341, 'App\\Models\\User', 11, 'AppName', 'd74a6d6396d348f2064cecfacb14b95efd45e27abedbb3049f7082f1509a762a', '[\"*\"]', NULL, '2024-01-07 18:34:32', '2024-01-07 18:34:32'),
+(337, 'App\\Models\\User', 15, 'Token', '665a4b77e1e5c6131f61a6084faebd224e3fe93041b121897f688bac42312de9', '[\"*\"]', NULL, '2024-01-06 06:56:33', '2024-01-06 06:56:33'),
+(338, 'App\\Models\\User', 15, 'Token', '7959782b406249ec0bcc31140e581a7c56717f9d1fc8d0828c7d7143fd975e35', '[\"*\"]', NULL, '2024-01-06 06:56:33', '2024-01-06 06:56:33'),
+(346, 'App\\Models\\User', 11, 'AppName', '09f39eaca345e186a43a6d88a7ae8a0bde46014a55ba8a33aef1cb33051a0401', '[\"*\"]', NULL, '2024-01-07 18:56:32', '2024-01-07 18:56:32'),
+(351, 'App\\Models\\User', 11, 'AppName', '7bd8847832bef3f7fb3bf5baf13e7f5e170dbc0abc845e0ebdd683c2150a0f7c', '[\"*\"]', NULL, '2024-01-07 19:04:57', '2024-01-07 19:04:57'),
+(352, 'App\\Models\\User', 11, 'Api token ofChiTon Doan', 'f28768688bb560b83a606569ba52c3603756f6cbafe03cef756903b05feba4ad', '[\"*\"]', NULL, '2024-01-07 19:04:57', '2024-01-07 19:04:57');
 
 -- --------------------------------------------------------
 
@@ -759,7 +942,7 @@ CREATE TABLE IF NOT EXISTS `promotions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `promotions`
@@ -767,7 +950,8 @@ CREATE TABLE IF NOT EXISTS `promotions` (
 
 INSERT INTO `promotions` (`id`, `name`, `description`, `start_date`, `end_date`, `discount`, `created_at`, `updated_at`) VALUES
 (2, 'a', NULL, '2023-11-02', '2024-01-20', 0.10, '2023-11-02 03:24:26', '2023-11-02 03:24:26'),
-(4, 'a23', 'a', '2023-02-02', '2024-06-20', 0.20, '2023-12-18 02:03:04', '2023-12-18 02:04:02');
+(4, 'a23', 'a', '2023-02-02', '2024-06-20', 0.20, '2023-12-18 02:03:04', '2023-12-18 02:04:02'),
+(5, 'abc', 'a', '2024-03-30', '2024-04-14', 0.05, '2024-01-07 06:51:54', '2024-01-07 08:00:32');
 
 -- --------------------------------------------------------
 
@@ -782,7 +966,7 @@ CREATE TABLE IF NOT EXISTS `publishers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `publishers`
@@ -840,7 +1024,6 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (1, 2),
-(2, 2),
 (3, 2),
 (4, 2),
 (5, 2);
@@ -868,7 +1051,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `is_locked` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
@@ -877,13 +1060,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `address`, `phone`, `genre`, `google_id`, `is_locked`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '$2y$10$3GkD3hJARKd99GIXQHLV9Od7/Oup2JxnMcxh3.a86CE8BLv/xY5Wu', NULL, '2023-11-09 07:00:23', '2023-11-09 07:00:23', NULL, NULL, NULL, NULL, 0),
 (2, 'userUp', 'user@gmail.com', NULL, '$2y$10$brqg1KKTUm2Jj.wz72IgeeDu5X3QA60vYhkO7ipR.VJePAzDbA8/S', NULL, '2023-11-09 07:00:37', '2023-11-27 08:44:52', 'a', '0979689327', 'Nam', NULL, 0),
-(3, 'user2', 'user2@gmail.com', NULL, '$2y$10$9x36ssS.qi1xvd3bTvJk.O.ZD.fACdrAi8hT4yR2zYyYhyzoz8DRK', NULL, '2023-11-12 01:22:14', '2023-11-28 00:21:12', 'a', '0979689327', NULL, NULL, 0),
-(4, 'user3', 'user3@gmail.com', NULL, '$2y$10$uA7b3SfY./VExpEy8R.NHuBojcKCH07hpzVy0KKfT5csZlIG//l1a', NULL, '2023-11-12 01:28:23', '2023-12-18 07:55:53', NULL, NULL, NULL, NULL, 1),
-(5, 'user4', 'user4@gmail.com', NULL, '$2y$10$nMGM14rjoLgPz9X.5.B7jO6/OIAeD1.4TGvhseTxu/cgLUtpo4olG', NULL, '2023-11-12 07:38:45', '2023-12-19 07:55:49', NULL, NULL, NULL, NULL, 1),
+(3, 'user2', 'user2@gmail.com', NULL, '$2y$10$9x36ssS.qi1xvd3bTvJk.O.ZD.fACdrAi8hT4yR2zYyYhyzoz8DRK', NULL, '2023-11-12 01:22:14', '2024-01-07 19:02:45', 'q3', '456789034', NULL, NULL, 0),
+(4, 'user3', 'user3@gmail.com', NULL, '$2y$10$uA7b3SfY./VExpEy8R.NHuBojcKCH07hpzVy0KKfT5csZlIG//l1a', NULL, '2023-11-12 01:28:23', '2024-01-01 21:42:37', NULL, NULL, NULL, NULL, 0),
+(5, 'user4', 'user4@gmail.com', NULL, '$2y$10$nMGM14rjoLgPz9X.5.B7jO6/OIAeD1.4TGvhseTxu/cgLUtpo4olG', NULL, '2023-11-12 07:38:45', '2024-01-01 03:07:06', NULL, NULL, NULL, NULL, 1),
 (6, 'user6', 'user6@gmail.com', NULL, '$2y$10$5xMQ2KmAX3.5UOQyi5V02OHvSbsiwDHGEQ/k20XD9PRwBObDniOt2', NULL, '2023-11-12 07:50:40', '2023-11-12 07:50:40', NULL, NULL, NULL, NULL, 0),
 (12, 'admin2', 'admin2@gmail.com', NULL, '$2y$10$7QznDfxrdS7qgF1Pxfm7Oe4ljyxryGTYkeXLqR6scZqQhiZHlI9/q', NULL, '2023-12-13 01:03:35', '2023-12-13 01:32:42', 'a', '0979689327', 'Nam', NULL, 0),
 (11, 'ChiTon Doan', 'tonvalorant@gmail.com', NULL, '$2y$10$NuwEvuLF9TC.pBTw04Won.e54EDLwPTArbdsE/e6b8kNtew/9YYf2', NULL, '2023-12-12 08:31:37', '2023-12-12 08:31:37', NULL, NULL, NULL, '104076886466269806454', 0),
-(15, 'employee', 'employee@gmail.com', NULL, '$2y$10$/5KU8gvRwfIkYb/KzsJru.QOeEXi6.6r2xfCiLgnFzij65fVxjP7W', NULL, '2023-12-19 07:53:25', '2023-12-19 07:53:25', NULL, NULL, NULL, NULL, 0);
+(15, 'employee', 'employee@gmail.com', NULL, '$2y$10$/5KU8gvRwfIkYb/KzsJru.QOeEXi6.6r2xfCiLgnFzij65fVxjP7W', NULL, '2023-12-19 07:53:25', '2023-12-19 07:53:25', NULL, NULL, NULL, NULL, 0),
+(16, 'Chí Tôn Đoàn', 'lusly1905@gmail.com', NULL, '$2y$10$l2xrOTVCoYC0LsqUpv.CO.Pzsv8L97Iid0iXmxFjxP0.En2S/7cam', NULL, '2024-01-06 05:03:57', '2024-01-06 05:03:57', NULL, NULL, NULL, '100449736775697176517', 0),
+(17, 'abc', 'adsd@gmail.com', NULL, '$2y$10$R.lAtcD6ZFJSM3j7mWFVb.ErGDU3EM.dib6hlFKSiMWy0iGRebyeS', NULL, '2024-01-06 06:48:52', '2024-01-06 06:54:19', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -899,7 +1084,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `wishlist`
@@ -907,7 +1092,8 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 
 INSERT INTO `wishlist` (`id`, `user_id`, `book_id`, `created_at`, `updated_at`) VALUES
 (13, 3, 14, '2023-11-29 02:53:09', '2023-11-29 02:53:09'),
-(15, 3, 17, '2023-11-29 06:20:29', '2023-11-29 06:20:29');
+(15, 3, 17, '2023-11-29 06:20:29', '2023-11-29 06:20:29'),
+(16, 17, 11, '2024-01-06 06:51:26', '2024-01-06 06:51:26');
 
 --
 -- Các ràng buộc cho các bảng đã đổ

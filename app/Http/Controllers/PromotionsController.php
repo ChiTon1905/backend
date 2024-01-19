@@ -42,11 +42,19 @@ class PromotionsController extends Controller
      */
     public function store(PromotionsRequest $request)
     {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Kiểm tra xem ngày bắt đầu có nhỏ hơn ngày kết thúc và cả hai đều không nhỏ hơn ngày hôm nay
+        if ($startDate >= $endDate || $startDate < now() || $endDate < now()) {
+            return response()->json("Lỗi ngày tháng");
+        }
+
         $p = new Promotion();
         $p->name = $request->name;
         $p->description = $request->description;
-        $p->start_date =$request->input('start_date');
-        $p->end_date = $request->input('end_date');
+        $p->start_date = $startDate;
+        $p->end_date = $endDate;
         $p->discount = $request->discount;
 
         $p->save();
